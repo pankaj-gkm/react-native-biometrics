@@ -34,6 +34,7 @@ public class SimplePromptCallback extends BiometricPrompt.AuthenticationCallback
 
         WritableMap resultMap = new WritableNativeMap();
         resultMap.putBoolean("success", true);
+        resultMap.putString("biometricType", result.getAuthenticationType() == 1 ? "DeviceCredentials" : "Biometrics");
         this.promise.resolve(resultMap);
     }
 }

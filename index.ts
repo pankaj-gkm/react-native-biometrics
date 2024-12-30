@@ -65,10 +65,17 @@ export const FaceID = 'FaceID'
  */
 export const Biometrics = 'Biometrics'
 
+export const DeviceCredentials = 'DeviceCredentials'
+
 export const BiometryTypes = {
   TouchID,
   FaceID,
   Biometrics
+}
+
+export const BiometryVerificationType = {
+  ...BiometryTypes,
+  DeviceCredentials
 }
 
 export module ReactNativeBiometricsLegacy {

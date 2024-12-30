@@ -187,8 +187,24 @@ RCT_EXPORT_METHOD(simplePrompt: (NSDictionary *)params resolver:(RCTPromiseResol
 
     [context evaluatePolicy:laPolicy localizedReason:promptMessage reply:^(BOOL success, NSError *biometricError) {
       if (success) {
+        LABiometryType biometryType = context.biometryType;
+        NSString *biometryUsed;
+
+        switch (biometryType) {
+          case LABiometryTypeFaceID:
+            biometryUsed = @"FaceID";
+            break;
+          case LABiometryTypeTouchID:
+            biometryUsed = @"TouchID";
+            break;
+          default:
+            biometryUsed = @"DeviceCredentials";
+            break;
+        }
+
         NSDictionary *result = @{
-          @"success": @(YES)
+          @"success": @(YES),
+          @"biometryType": biometryUsed
         };
         resolve(result);
       } else if (biometricError.code == LAErrorUserCancel) {
